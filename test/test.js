@@ -57,7 +57,7 @@ describe('server', function() {
         var url = 'www.example.com';
 
         // Reset the test file and process request
-        fs.closeSync(fs.openSync(archive.paths.list, 'w'));
+        fs.closeSync(fs.openSync(archive.paths.list, 'w+'));
 
         request
           .post('/')
@@ -155,4 +155,3 @@ describe('archive helpers', function() {
     });
   });
 });
-
