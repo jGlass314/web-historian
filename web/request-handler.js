@@ -15,7 +15,7 @@ exports.handleRequest = function (req, res) {
     } else {
       fileName = path.join(archive.paths.archivedSites, req.url);
     }
-    helpers.serveAssets(res, fileName, assetHandler);
+    helpers.serveAssets(res, fileName, 200, assetHandler);
     break;
   case 'OPTIONS':
     optionsHandler(res, helpers.headers, 200);
@@ -60,20 +60,20 @@ postHandler = (req, res, headers, statusCode) => {
           if (isArchived) {
             console.log('asset:', url, 'is archived');
             // TODO: should we return the file here?? probably...
+            var filePath = path.join(archive.paths.archivedSites, url);
+            console.log('serving up asset', filePath);
+            helpers.serveAssets(res, filePath, 201, assetHandler);
           } else {
-            // TODO: send loading page
-            helpers.serveAssets(res, path.join(__dirname, 'public/loading.html'), assetHandler);
+            console.log("not archived, send loading page");
+            helpers.serveAssets(res, path.join(__dirname, 'public/loading.html'), 302, assetHandler);
           }
-          // res.writeHead(statusCode, headers);
-          // res.end();
         });
-
-
       } else {
         archive.addUrlToList(url, () => {
-          console.log('added', url, 'to', archive.paths.list);
-          res.writeHead(302, headers);
-          res.end();
+          console.log('added', url, 'to', archive.paths.list, 'sending load page');
+          helpers.serveAssets(res, path.join(__dirname, 'public/loading.html'), 302, assetHandler);
+          // res.writeHead(302, headers);
+          // res.end();
         });
       }
     });

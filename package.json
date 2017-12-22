@@ -20,7 +20,8 @@
     "bluebird": "^3.3.4",
     "cron": "^1.1.0",
     "request": "^2.70.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "console-stamp": "^0.2.6"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",

@@ -22,7 +22,7 @@ exports.headers = {
 //   '.woff2': 'application/font-woff2'
 // };
 
-exports.serveAssets = function(res, asset, callback) {
+exports.serveAssets = function(res, asset, statusCode, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
@@ -52,7 +52,7 @@ exports.serveAssets = function(res, asset, callback) {
         return;
       }
       // exports.headers['Content-Type'] = mimeType;
-      callback(res, exports.headers, 200, file, 'binary');
+      callback(res, exports.headers, statusCode, file, 'binary');
     });
   });
 };
